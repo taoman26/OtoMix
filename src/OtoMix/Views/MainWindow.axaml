@@ -1,0 +1,166 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:OtoMix.ViewModels"
+        x:Class="OtoMix.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="OtoMix" Width="520" Height="420"
+        CanResize="False" WindowStartupLocation="CenterScreen"
+        Background="#14161A"
+        FontFamily="Noto Sans CJK JP, Yu Gothic UI, Meiryo UI, sans-serif">
+  <Window.Styles>
+    <Style Selector="TextBlock.label">
+      <Setter Property="FontSize" Value="11"/>
+      <Setter Property="Foreground" Value="#8A9099"/>
+      <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+    <Style Selector="ComboBox, TextBox">
+      <Setter Property="Height" Value="38"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Background" Value="#1E2127"/>
+      <Setter Property="BorderBrush" Value="#2C3038"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Foreground" Value="#E8EAED"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Padding" Value="14,0"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    <Style Selector="ComboBox">
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="ComboBox:pointerover /template/ Border#Background, TextBox:pointerover /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="#1E2127"/>
+      <Setter Property="BorderBrush" Value="#3A3F49"/>
+    </Style>
+    <Style Selector="Button.browse">
+      <Setter Property="Width" Value="48"/>
+      <Setter Property="Height" Value="38"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Background" Value="#1E2127"/>
+      <Setter Property="BorderBrush" Value="#2C3038"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Foreground" Value="#E8EAED"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.mute">
+      <Setter Property="Width" Value="48"/>
+      <Setter Property="Height" Value="38"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Background" Value="#1E2127"/>
+      <Setter Property="BorderBrush" Value="#2C3038"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Foreground" Value="#E8EAED"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.mute.muted">
+      <Setter Property="Background" Value="#2A1A1D"/>
+      <Setter Property="BorderBrush" Value="#5A2A2E"/>
+      <Setter Property="Foreground" Value="#E5484D"/>
+    </Style>
+    <Style Selector="Button.mute:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#272B33"/>
+      <Setter Property="BorderBrush" Value="#3A3F49"/>
+      <Setter Property="Foreground" Value="#E8EAED"/>
+    </Style>
+    <Style Selector="Button.mute.muted:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#34201F"/>
+      <Setter Property="BorderBrush" Value="#7A3A3F"/>
+      <Setter Property="Foreground" Value="#E5484D"/>
+    </Style>
+    <Style Selector="ComboBox.muted">
+      <Setter Property="Foreground" Value="#8A9099"/>
+    </Style>
+    <Style Selector="Button.rec">
+      <Setter Property="Height" Value="52"/>
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="Background" Value="#4C8DFF"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="FontSize" Value="16"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+      <Setter Property="HorizontalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.rec:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#5E9AFF"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="Button.rec.recording">
+      <Setter Property="Background" Value="#E5484D"/>
+    </Style>
+    <Style Selector="Button.rec.recording:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#EB5A5F"/>
+    </Style>
+    <Style Selector="Ellipse.dot"><Setter Property="Fill" Value="#8A9099"/></Style>
+    <Style Selector="Ellipse.dot.recording"><Setter Property="Fill" Value="#E5484D"/></Style>
+    <Style Selector="TextBlock.status"><Setter Property="Foreground" Value="#8A9099"/></Style>
+    <Style Selector="TextBlock.status.error"><Setter Property="Foreground" Value="#E5484D"/></Style>
+    <Style Selector="TextBlock.status.recording"><Setter Property="Foreground" Value="#E8EAED"/></Style>
+  </Window.Styles>
+
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Margin="28,22,28,20">
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="12" Margin="0,0,0,24">
+      <TextBlock Text="OtoMix" FontSize="20" FontWeight="Bold" Foreground="#E8EAED"/>
+      <TextBlock Text="mic + system → 1 file" FontSize="11" Foreground="#8A9099" VerticalAlignment="Bottom" Margin="0,0,0,3"/>
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Margin="0,0,0,22">
+      <TextBlock Classes="label" Text="マイク（自分の声）"/>
+      <Grid ColumnDefinitions="*,Auto">
+        <ComboBox Classes.muted="{Binding IsMicMuted}" ItemsSource="{Binding Microphones}" SelectedItem="{Binding SelectedMicrophone}" IsEnabled="{Binding IsIdle}"/>
+        <Button x:Name="MicMuteButton" Grid.Column="1" Classes="mute" Classes.muted="{Binding IsMicMuted}" Margin="8,0,0,0"
+                Command="{Binding ToggleMicMuteCommand}" ToolTip.Tip="マイクをミュート（録音しない）">
+          <Panel Width="24" Height="24">
+            <Path Data="M12,3 a3,3 0 0 1 3,3 v5 a3,3 0 0 1 -6,0 v-5 a3,3 0 0 1 3,-3 z M6,11 a6,6 0 0 0 12,0 M12,17 v4 M9,21 h6"
+                  Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.8" StrokeLineCap="Round" StrokeJoin="Round"/>
+            <Path Data="M4,20 L20,4" Stroke="#E5484D" StrokeThickness="2.2" StrokeLineCap="Round" IsVisible="{Binding IsMicMuted}"/>
+          </Panel>
+        </Button>
+      </Grid>
+    </StackPanel>
+
+    <StackPanel Grid.Row="2" Margin="0,0,0,22">
+      <TextBlock Classes="label" Text="スピーカー（相手の声）"/>
+      <Grid ColumnDefinitions="*,Auto">
+        <ComboBox Classes.muted="{Binding IsLoopMuted}" ItemsSource="{Binding Loopbacks}" SelectedItem="{Binding SelectedLoopback}" IsEnabled="{Binding IsIdle}"/>
+        <Button x:Name="LoopMuteButton" Grid.Column="1" Classes="mute" Classes.muted="{Binding IsLoopMuted}" Margin="8,0,0,0"
+                Command="{Binding ToggleLoopMuteCommand}" ToolTip.Tip="スピーカーをミュート（録音しない）">
+          <Panel Width="24" Height="24">
+            <Path Data="M4,9 h4 l5,-4 v14 l-5,-4 h-4 z M16,9 a4,4 0 0 1 0,6 M18.5,6.5 a8,8 0 0 1 0,11"
+                  Stroke="{Binding $parent[Button].Foreground}" StrokeThickness="1.8" StrokeLineCap="Round" StrokeJoin="Round"/>
+            <Path Data="M4,20 L20,4" Stroke="#E5484D" StrokeThickness="2.2" StrokeLineCap="Round" IsVisible="{Binding IsLoopMuted}"/>
+          </Panel>
+        </Button>
+      </Grid>
+    </StackPanel>
+
+    <StackPanel Grid.Row="3" Margin="0,0,0,26">
+      <TextBlock Classes="label" Text="保存先"/>
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBox Grid.Column="0" Text="{Binding OutputPath}" IsEnabled="{Binding IsIdle}"/>
+        <Button x:Name="BrowseButton" Grid.Column="1" Command="{Binding BrowseCommand}" Classes="browse" Content="…" Margin="8,0,0,0" IsEnabled="{Binding IsIdle}"/>
+      </Grid>
+    </StackPanel>
+
+    <Button x:Name="RecordButton" Grid.Row="4" Classes="rec" Classes.recording="{Binding IsRecording}"
+            Command="{Binding ToggleRecordingCommand}">
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <Panel Width="16" Height="16" VerticalAlignment="Center">
+          <Ellipse Width="14" Height="14" Fill="White" IsVisible="{Binding IsIdle}"/>
+          <Border Width="14" Height="14" CornerRadius="2" Background="White" IsVisible="{Binding IsRecording}"/>
+        </Panel>
+        <TextBlock Text="{Binding RecordButtonText}" VerticalAlignment="Center"/>
+      </StackPanel>
+    </Button>
+
+    <StackPanel Grid.Row="5" Orientation="Horizontal" Spacing="8" Margin="0,18,0,0">
+      <Ellipse Classes="dot" Classes.recording="{Binding IsRecording}" Width="8" Height="8" VerticalAlignment="Center"/>
+      <TextBlock Classes="status" Classes.error="{Binding HasError}" Classes.recording="{Binding IsRecording}" Text="{Binding StatusText}" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="460"/>
+    </StackPanel>
+  </Grid>
+</Window>

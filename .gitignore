@@ -1,0 +1,19 @@
+# ビルド成果物
+bin/
+obj/
+dist/
+*.pdb
+
+# IDE / エディタ / ユーザー固有
+.vs/
+.idea/
+.vscode/
+*.user
+.claude/
+
+# 開発用の補助物（公開しない）
+tools/
+design/
+CLAUDE.md
+design.md
+schema.md
