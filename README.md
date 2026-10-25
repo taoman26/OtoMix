@@ -41,6 +41,21 @@ WEB会議の録音用に作った、軽量な音声録音アプリです。**マ
 
 どちらも 48kHz・ステレオです。
 
+### ランチャーへの登録（Linux）
+
+アイコン画像は `src/OtoMix/Assets/icon-512.png`（256px版も同じ場所）です。`~/.local/share/applications/otomix.desktop` を次の内容で作ると、アプリランチャーに出ます（パスは置き場所に合わせてください）。
+
+```ini
+[Desktop Entry]
+Type=Application
+Name=OtoMix
+Comment=会議用の軽量録音アプリ
+Exec=/path/to/OtoMix
+Icon=/path/to/icon-512.png
+Categories=AudioVideo;Audio;Recorder;
+Terminal=false
+```
+
 ## ビルドと実行
 
 .NET 8 SDK が必要です。

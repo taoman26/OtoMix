@@ -3,7 +3,7 @@
         xmlns:vm="using:OtoMix.ViewModels"
         x:Class="OtoMix.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        Title="OtoMix" Width="520" Height="420"
+        Title="OtoMix" Icon="/Assets/icon-256.png" Width="520" Height="420"
         CanResize="False" WindowStartupLocation="CenterScreen"
         Background="#14161A"
         FontFamily="Noto Sans CJK JP, Yu Gothic UI, Meiryo UI, sans-serif">

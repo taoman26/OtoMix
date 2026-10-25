@@ -11,6 +11,13 @@ public class ScreenshotTests
     private static string OutDir => Environment.GetEnvironmentVariable("OTOMIX_SHOT_DIR") ?? AppContext.BaseDirectory;
 
     [AvaloniaFact]
+    public void Window_HasIcon()
+    {
+        var win = new MainWindow();
+        Assert.NotNull(win.Icon);
+    }
+
+    [AvaloniaFact]
     public async Task Render_Idle_And_Recording()
     {
         var vm = new MainViewModel();
