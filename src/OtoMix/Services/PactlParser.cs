@@ -18,10 +18,13 @@ public static class PactlParser
             var name = src.GetProperty("name").GetString();
             if (string.IsNullOrEmpty(name)) continue;
             var desc = src.TryGetProperty("description", out var d) ? d.GetString() : null;
-            Add(name, string.IsNullOrWhiteSpace(desc) ? name : desc!, mics, loops);
+            Add(name, IsUsableDescription(desc) ? desc! : name, mics, loops);
         }
         return new DeviceList(mics, loops);
     }
+
+    // PulseAudio 15.99 のJSON出力は説明文に非ASCII(日本語など)があると文字列 "(null)" を出す。
+    private static bool IsUsableDescription(string? d) => !string.IsNullOrWhiteSpace(d) && d != "(null)";
 
     /// <summary>古いpactl用フォールバック: `pactl list short sources`（index\tname\t...）。</summary>
     public static DeviceList ParseShort(string text)

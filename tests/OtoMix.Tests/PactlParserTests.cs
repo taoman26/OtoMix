@@ -38,4 +38,13 @@ public class PactlParserTests
         Console.WriteLine($"mics={string.Join(",", r.Microphones)} loops={string.Join(",", r.Loopbacks)}");
         Assert.NotEmpty(r.Microphones.Concat(r.Loopbacks));
     }
+
+    [Fact]
+    public void ParseJson_NullDescriptionFromPulse1599_FallsBackToName()
+    {
+        const string json = """[{"name":"alsa_output.pci-0000_00_1f.3.analog-stereo.monitor","description":"(null)"},{"name":"alsa_input.pci-0000_00_1f.3.analog-stereo","description":"(null)"}]""";
+        var list = PactlParser.ParseJson(json);
+        Assert.Equal("alsa_input.pci-0000_00_1f.3.analog-stereo", Assert.Single(list.Microphones).DisplayName);
+        Assert.Equal("alsa_output.pci-0000_00_1f.3.analog-stereo.monitor", Assert.Single(list.Loopbacks).DisplayName);
+    }
 }
