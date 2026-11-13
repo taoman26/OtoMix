@@ -58,14 +58,14 @@ Terminal=false
 
 ## ビルドと実行
 
-.NET 8 SDK が必要です。
+.NET 10 SDK が必要です。
 
 ```bash
 dotnet run --project src/OtoMix        # 開発実行
 dotnet test                            # テスト
 ```
 
-配布用の単一ファイル（ランタイム同梱、約90MB）を作るには:
+配布用の単一ファイル（ランタイム同梱、約100MB）を作るには:
 
 ```bash
 dotnet publish src/OtoMix -c Release -r linux-x64 --self-contained \
@@ -112,7 +112,7 @@ Windows ではシステム音声に WASAPI ループバックを使うので、�
 ## ディレクトリ構成
 
 ```
-src/OtoMix/          アプリ本体 (Avalonia UI 11 / .NET 8 / MVVM)
+src/OtoMix/          アプリ本体 (Avalonia UI 12 / .NET 10 / MVVM)
 tests/OtoMix.Tests/  単体テスト・実ffmpegテスト・画面描画テスト
 OtoMix.sln
 LICENSE
