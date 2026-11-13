@@ -19,7 +19,7 @@ public class LinuxMixingTests : IAsyncLifetime
     private static AudioDevice DevA => new("otomix_t_a.monitor", "A(mic role)", DeviceKind.Microphone);
     private static AudioDevice DevB => new("otomix_t_b.monitor", "B(speaker role)", DeviceKind.Loopback);
 
-    public async Task InitializeAsync()
+    public async ValueTask InitializeAsync()
     {
         if (!Enabled) return;
         foreach (var n in new[] { "otomix_t_a", "otomix_t_b" })
@@ -30,7 +30,7 @@ public class LinuxMixingTests : IAsyncLifetime
         await Task.Delay(500);
     }
 
-    public async Task DisposeAsync()
+    public async ValueTask DisposeAsync()
     {
         foreach (var t in _tones) { try { t.Kill(); t.Dispose(); } catch { } }
         foreach (var m in _modules) await Run("pactl", "unload-module", m);
